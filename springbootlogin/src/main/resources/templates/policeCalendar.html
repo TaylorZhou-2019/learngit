@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Title</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/bootstrap-table.css">
+    <link rel="stylesheet" href="css/layui.css">
+    <link rel="stylesheet" href="css/global.css">
+    <link rel="stylesheet" href="css/red.css">
+    <link href="css/fullcalendar.css" rel="stylesheet" media="screen">
+    <!--<link href="css/bootstrap.min.css" rel="stylesheet" media="screen">-->
+    <script src="https://cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>
+    <script src="js/layer.js"></script>
+    <script src="js/bootstrap.js"></script>
+    <script src="js/bootstrap-table.js"></script>
+    <script src="js/bootstrap-table-zh-CN.js"></script>
+    <script src="js/tableDanger.js"></script>
+</head>
+<body>
+<div class="layui-layout layui-layout-admin">
+    <div class="layui-header">
+        <div class="layui-logo">身份信息识别系统</div>
+        <!-- 头部区域（可配合layui已有的水平导航） -->
+        <ul class="layui-nav layui-layout-left">
+            <li class="layui-nav-item"><a href="admin.html">用户列表</a></li>
+        </ul>
+        <ul class="layui-nav layui-layout-right">
+            <li class="layui-nav-item">
+                <a href="javascript:;">
+                    公安
+                </a>
+                <dl class="layui-nav-child">
+                    <dd><a href="">基本资料</a></dd>
+                    <dd><a href="">安全设置</a></dd>
+                </dl>
+            </li>
+            <li class="layui-nav-item"><a href="/">退出</a></li>
+        </ul>
+    </div>
+    <div class="layui-side layui-bg-black">
+        <div class="layui-side-scroll">
+            <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
+            <ul class="layui-nav layui-nav-tree" lay-filter="test">
+                <li class="layui-nav-item layui-nav-itemed">
+                    <a href="javascript:">记录管理</a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="policeRecord.html">记录列表</a></dd>
+                        <dd><a href="policeDanger.html">危险列表</a></dd>
+                    </dl>
+                </li>
+                <li class="layui-nav-item  layui-nav-itemed">
+                    <a href="javascript:;">酒店信息管理</a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="policeUserMgt.html">酒店列表</a></dd>
+                    </dl>
+                </li>
+                <li class="layui-nav-item layui-nav-itemed">
+                    <a href="javascript:">嫌疑人信息管理</a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="policeSuspect.html">嫌疑人列表</a></dd>
+                    </dl>
+                </li>
+                <li class="layui-nav-item  layui-nav-itemed">
+                    <a href="javascript:;">控制台</a>
+                    <dl class="layui-nav-child">
+                        <dd><a class="layui-this" href="policeCalendar.html">日志管理</a></dd>
+                    </dl>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+    <!--左侧正文-->
+    <div style="margin-left:240px;">
+        <hr>
+        <!--<h1 style="margin-top: 30px;">日志列表</h1>-->
+        <div class="span9" id="content">
+            <div class="row-fluid">
+                <!-- block -->
+                <div class="block">
+                    <div class="navbar navbar-inner block-header">
+                        <div class="muted pull-left" style="font-size: 28px;margin-bottom: 30px;">日志记录</div>
+                    </div>
+                </div>
+                <div class="block-content collapse in" >
+                    <div class="span2">
+                        <div id='external-events'>
+                            <h4>拖拽事件</h4>
+                            <div class='external-event'>例行维护</div>
+                            <div class='external-event'>系统备份</div>
+                            <div class='external-event'>出警</div>
+                            <div class='external-event'>嫌疑人信息更新</div>
+                            <div class='external-event'>误报记录</div>
+                            <div class='external-event'>变更管理</div>
+                            <div class='external-event'>权限管理</div>
+                            <p>
+                                <input type='checkbox' id='drop-remove'/>
+                                <label for='drop-remove'>拖走后清除</label>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="span10" style="width:80%;float: left;margin-left: 20px;" >
+                        <div id='calendar'></div>
+                    </div>
+                </div>
+            </div>
+            <!-- /block -->
+        </div>
+    </div>
+
+<hr>
+</div>
+<style>
+    #external-events {
+        float: left;
+        width: 150px;
+        padding: 0 10px;
+        border: 1px solid #ccc;
+        background: #eee;
+        text-align: left;
+    }
+
+    #external-events h4 {
+        font-size: 16px;
+        margin-top: 0;
+        padding-top: 1em;
+    }
+
+    .external-event {
+        /* try to mimick the look of a real event */
+        margin: 10px 0;
+        padding: 2px 4px;
+        background: #32516F;
+        color: #fff;
+        font-size: .85em;
+        cursor: pointer;
+        z-index: 99999999;
+    }
+
+    #external-events p {
+        margin: 1.5em 0;
+        font-size: 11px;
+        color: #666;
+    }
+
+    #external-events p input {
+        margin: 0;
+        vertical-align: middle;
+    }
+</style>
+<!--/.fluid-container-->
+<script src="js/jquery-ui-1.10.3.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/fullcalendar.js"></script>
+<script src="js/gcal.js"></script>
+<script src="js/scripts.js"></script>
+<script>
+    $(function () {
+        // Easy pie charts
+        var calendar = $('#calendar').fullCalendar({
+            header: {
+                left: 'prev,next',
+                center: 'title',
+                right: 'month,basicWeek,basicDay'
+            },
+            selectable: true,
+            selectHelper: true,
+            select: function (start, end, allDay) {
+                var title = prompt('Event Title:');
+                if (title) {
+                    calendar.fullCalendar('renderEvent', {
+                            title: title,
+                            start: start,
+                            end: end,
+                            allDay: allDay
+                        },
+                        true // make the event "stick"
+                    );
+                }
+                calendar.fullCalendar('unselect');
+            },
+            droppable: true, // this allows things to be dropped onto the calendar !!!
+            drop: function (date, allDay) { // this function is called when something is dropped
+
+                // retrieve the dropped element's stored Event Object
+                var originalEventObject = $(this).data('eventObject');
+
+                // we need to copy it, so that multiple events don't have a reference to the same object
+                var copiedEventObject = $.extend({}, originalEventObject);
+
+                // assign it the date that was reported
+                copiedEventObject.start = date;
+                copiedEventObject.allDay = allDay;
+
+                // render the event on the calendar
+                // the last `true` argument determines if the event "sticks" (http://arshaw.com/fullcalendar/docs/event_rendering/renderEvent/)
+                $('#calendar').fullCalendar('renderEvent', copiedEventObject, true);
+
+                // is the "remove after drop" checkbox checked?
+                if ($('#drop-remove').is(':checked')) {
+                    // if so, remove the element from the "Draggable Events" list
+                    $(this).remove();
+                }
+
+            },
+            editable: true,
+            // US Holidays
+            events: 'http://www.google.com/calendar/feeds/usa__en%40holiday.calendar.google.com/public/basic'
+
+        });
+    });
+
+    $('#external-events div.external-event').each(function () {
+
+        // create an Event Object (http://arshaw.com/fullcalendar/docs/event_data/Event_Object/)
+        // it doesn't need to have a start or end
+        var eventObject = {
+            title: $.trim($(this).text()) // use the element's text as the event title
+        };
+
+        // store the Event Object in the DOM element so we can get to it later
+        $(this).data('eventObject', eventObject);
+
+        // make the event draggable using jQuery UI
+        $(this).draggable({
+            zIndex: 999999999,
+            revert: true, // will cause the event to go back to its
+            revertDuration: 0 //  original position after the drag
+        });
+
+    });
+</script>
+</div>
+</body>
+
+</html>

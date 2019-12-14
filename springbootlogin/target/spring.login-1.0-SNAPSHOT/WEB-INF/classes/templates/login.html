@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/>
+    <title>身份信息识别系统管理系统-登录</title>
+    <link rel="stylesheet" type="text/css" href="css/layui.css" media="all"/>
+    <link rel="stylesheet" type="text/css" href="css/login.css"/>
+    <meta name="viewport"content="width=device-width, initial-scale=1"/>
+    <link rel="stylesheet" href="PC.css" media="screen and (min-width:501px)" />
+    <link rel="stylesheet" href="手机.css" media="screen and (max-width:500px)" />
+</head>
+<body class="beg-login-bg">
+<div class="beg-login-box">
+    <header>
+        <h1>身份信息识别管理系统</h1>
+    </header>
+    <div class="beg-login-main">
+        <form action="/loginVerify" class="layui-form" method="post" id="loginForm">
+            <div class="layui-form-item">
+                <label class="beg-login-icon">
+                    <i class="layui-icon">&#xe612;</i>
+                </label>
+                <input type="text" lay-verify="required" id="username" name="username" autocomplete="off"
+                       placeholder="这里输入账号" class="layui-input" lay-verType="tips">
+            </div>
+            <div class="layui-form-item">
+                <label class="beg-login-icon">
+                    <i class="layui-icon">&#xe642;</i>
+                </label>
+                <input type="password" lay-verify="required" id="password" name="password" autocomplete="off"
+                       placeholder="这里输入密码" class="layui-input" lay-verType="tips">
+            </div>
+            <div class="layui-form-item">
+                <div class="beg-pull">
+                    <input type="submit" value="登录" class="layui-btn layui-btn-normal" style="width:100%;">
+                    </input>
+                </div>
+            </div>
+        </form>
+        <div class="layui-form-item">
+            <div class="beg-pull">
+                <input type="submit" value="注册" onclick="window.location.href='register.html'"
+                       class="layui-btn layui-btn-normal" style="width:100%;">
+                </input>
+            </div>
+        </div>
+    </div>
+
+</div>
+<!--<script src="https://cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>-->
+<script src="js/jquery.min.js"></script>
+<script src="http://malsup.github.com/jquery.form.js"></script>
+<script type="text/javascript" src="js/layui.js"></script>
+<!--<script type="text/javascript" src="js/login.js"></script>-->
+<script>
+    $(document).ready(function () {
+        $("#loginForm").ajaxForm(function (data) {
+            data = JSON.parse(data);
+            if (data.success == 0)
+                alert("账号或密码错误！");
+            else if (data.success == 1)
+                window.location = "hotelPhoRecg.html";
+            else if (data.success == 2) {
+                window.location = "policeRecord.html";
+            } else {
+                // console.log("返回的值是 " + typeof (data));
+                // console.log("返回的值是 " + data.success);
+                alert("error");
+            }
+        });
+    });
+</script>
+</body>
+</html>
