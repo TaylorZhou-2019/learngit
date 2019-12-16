@@ -39,10 +39,7 @@ public class DemoController {
         user.setUsername(username);
         user.setPassword("");
         user.settypes(0);
-        int verify = loginService.verifyLogin(user);
-        if (verify == -1) {
-            loginService.adduser(user);
-        }
+        loginService.adduser(user);
         return username;
     }
 

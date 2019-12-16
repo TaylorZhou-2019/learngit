@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import springboot.login.WebSecurityConfig;
+//import springboot.login.WebSecurityConfig;
 import springboot.login.bean.User;
 import springboot.login.service.LoginService;
 
@@ -17,11 +17,11 @@ public class LoginController {
     @Autowired
     private LoginService loginService;
 
-    @GetMapping("/")
-    public String index(@SessionAttribute(WebSecurityConfig.SESSION_KEY) String account, Model model) {
-
-        return "logout";
-    }
+//    @GetMapping("/")
+//    public String index(@SessionAttribute(WebSecurityConfig.SESSION_KEY) String account, Model model) {
+//
+//        return "logout";
+//    }
 
     @GetMapping("/login")
     public String login() {
@@ -73,7 +73,7 @@ public class LoginController {
         user.setPassword(password);
         int verify = loginService.verifyLogin(user);
         if (verify != -1) {
-            session.setAttribute(WebSecurityConfig.SESSION_KEY, username);
+//            session.setAttribute(WebSecurityConfig.SESSION_KEY, username);
             if (verify == 0)
                 return "{\"success\":\"1\"}";
             else
@@ -98,11 +98,11 @@ public class LoginController {
         }
     }
 
-    @GetMapping("/logout")
-    public String logout(HttpSession session) {
-        session.removeAttribute(WebSecurityConfig.SESSION_KEY);
-        return "redirect:/login";
-    }
+//    @GetMapping("/logout")
+//    public String logout(HttpSession session) {
+//        session.removeAttribute(WebSecurityConfig.SESSION_KEY);
+//        return "redirect:/login";
+//    }
 
 
 }
