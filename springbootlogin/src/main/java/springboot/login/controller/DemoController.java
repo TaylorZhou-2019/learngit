@@ -46,14 +46,20 @@ public class DemoController {
     @RequestMapping(value = "/redis",method = RequestMethod.GET)
     public String redisTest(){
         String code = String.valueOf(UUID.randomUUID());
+        redisService.get(code);
+        redisService.set(code, 1);
         redisService.lPush("list",code);
+        redisService.get("list");
         return code;
     }
 
     @RequestMapping(value = "/record",method = RequestMethod.GET)
     public String recordTest(){
         String code = String.valueOf(UUID.randomUUID());
+        redisService.get(code);
+        redisService.set(code, 1);
         redisService.lPush("list",code);
+        redisService.get("list");
         executorService.execute(
                 new SeckillRecordTask(code, loginService));
         return code;
