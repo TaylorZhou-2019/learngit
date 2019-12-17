@@ -49,7 +49,7 @@ public class DemoController {
         redisService.get(code);
         redisService.set(code, 1);
         redisService.lPush("list",code);
-        redisService.get("list");
+        redisService.get(code);
         return code;
     }
 
@@ -59,7 +59,7 @@ public class DemoController {
         redisService.get(code);
         redisService.set(code, 1);
         redisService.lPush("list",code);
-        redisService.get("list");
+        redisService.get(code);
         executorService.execute(
                 new SeckillRecordTask(code, loginService));
         return code;
