@@ -23,6 +23,17 @@ public class LoginService {
         }
     }
 
+
+    public User findUser(User user) {
+
+        List<User> userList = loginDao.findByUsernameAndPassword(user.getUsername(), user.getPassword());
+        if (userList.size() > 0)
+            return userList.get(0);
+        else {
+            return new User();
+        }
+    }
+
     public void adduser(User user) {
         loginDao.save(user);
     }
@@ -31,13 +42,13 @@ public class LoginService {
         loginDao.deleteById(id);
     }
 
-//    public void upduser(User user) {
-//        User upUser = loginDao.findOne(user.getId());
+    public void upduser(User user) {
+        User upUser = user;
 //        upUser.setUsername(user.getUsername());
 //        upUser.setPassword(user.getPassword());
 //        upUser.settypes(user.gettypes());
-//        loginDao.save(upUser);
-//    }
+        loginDao.save(upUser);
+    }
 
     public Iterable<User> getAll() {
         return loginDao.findAll();

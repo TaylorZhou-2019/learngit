@@ -35,11 +35,24 @@ public class DemoController {
     @RequestMapping(value = "/mysql",method = RequestMethod.GET)
     public String mysqlTest(){
         User user = new User();
+        long times = (long)(10 * Math.random());
         String username = String.valueOf(UUID.randomUUID());
-        user.setUsername(username);
-        user.setPassword("");
-        user.settypes(0);
-        loginService.adduser(user);
+        for (int i = 0;i<times;i++) {
+            user.setUsername(username);
+            user.setPassword("");
+            user.settypes(0);
+            loginService.adduser(user);
+            if (i > 2) {
+                user = loginService.findUser(user);
+                if (i > 5) {
+                    user.setPassword("123");
+                    loginService.upduser(user);
+                    if (i > 8) {
+                        loginService.deluser(user.getId());
+                    }
+                }
+            }
+        }
         return username;
     }
 
@@ -47,13 +60,14 @@ public class DemoController {
     public String redisTest(){
         String code = String.valueOf(UUID.randomUUID());
         redisService.get(code);
-        long expire = 60 * (long)Math.random();
+        long expire = (long)(60 * Math.random());
         redisService.set(code, 1, expire);
         if(expire >> 1 == 0) {
             redisService.lPush("list", code);
         }
-        if(expire % 10 == 0) {
+        if(expire % 5 == 0) {
             redisService.remove("list");
+            redisService.lPush("list", code);
         }
         redisService.get(code);
         return code;
@@ -63,13 +77,14 @@ public class DemoController {
     public String recordTest(){
         String code = String.valueOf(UUID.randomUUID());
         redisService.get(code);
-        long expire = 60 * (long)Math.random();
+        long expire = (long)(60 * Math.random());
         redisService.set(code, 1, expire);
         if(expire >> 1 == 0) {
             redisService.lPush("list", code);
         }
-        if(expire % 10 == 0) {
+        if(expire % 5 == 0) {
             redisService.remove("list");
+            redisService.lPush("list", code);
         }
         redisService.get(code);
         executorService.execute(
