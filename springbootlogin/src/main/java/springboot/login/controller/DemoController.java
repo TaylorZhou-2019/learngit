@@ -47,8 +47,14 @@ public class DemoController {
     public String redisTest(){
         String code = String.valueOf(UUID.randomUUID());
         redisService.get(code);
-        redisService.set(code, 1);
-        redisService.lPush("list",code);
+        long expire = 60 * (long)Math.random();
+        redisService.set(code, 1, expire);
+        if(expire >> 1 == 0) {
+            redisService.lPush("list", code);
+        }
+        if(expire % 10 == 0) {
+            redisService.remove("list");
+        }
         redisService.get(code);
         return code;
     }
@@ -57,8 +63,14 @@ public class DemoController {
     public String recordTest(){
         String code = String.valueOf(UUID.randomUUID());
         redisService.get(code);
-        redisService.set(code, 1);
-        redisService.lPush("list",code);
+        long expire = 60 * (long)Math.random();
+        redisService.set(code, 1, expire);
+        if(expire >> 1 == 0) {
+            redisService.lPush("list", code);
+        }
+        if(expire % 10 == 0) {
+            redisService.remove("list");
+        }
         redisService.get(code);
         executorService.execute(
                 new SeckillRecordTask(code, loginService));
