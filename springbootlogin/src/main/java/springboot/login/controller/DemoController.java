@@ -47,8 +47,9 @@ public class DemoController {
                 if (i > 5) {
                     user.setPassword("123");
                     loginService.upduser(user);
-                    if (i > 8) {
+                    if (i == 8) {
                         loginService.deluser(user.getId());
+                        break;
                     }
                 }
             }
@@ -60,7 +61,7 @@ public class DemoController {
     public String redisTest(){
         String code = String.valueOf(UUID.randomUUID());
         redisService.get(code);
-        long expire = (long)(60 * Math.random());
+        long expire = (long)(600 * Math.random());
         redisService.set(code, 1, expire);
         if(expire >> 1 == 0) {
             redisService.lPush("list", code);
@@ -77,12 +78,12 @@ public class DemoController {
     public String recordTest(){
         String code = String.valueOf(UUID.randomUUID());
         redisService.get(code);
-        long expire = (long)(60 * Math.random());
+        long expire = (long)(600 * Math.random());
         redisService.set(code, 1, expire);
         if(expire >> 1 == 0) {
             redisService.lPush("list", code);
         }
-        if(expire % 5 == 0) {
+        if(expire % 100 == 0) {
             redisService.remove("list");
             redisService.lPush("list", code);
         }
